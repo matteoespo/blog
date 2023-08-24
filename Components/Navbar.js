@@ -53,30 +53,6 @@ function Navbar({ topics }) {
       });
   };
 
-  const handelSignIn = () => {
-    signInWithPopup(auth, provider)
-      .then((res) => {
-        const userObj = {
-          name: res.user.displayName,
-          photo: res.user.photoURL,
-          token: res.user.accessToken,
-          uid: res.user.uid,
-        };
-
-        localStorage.setItem("user", JSON.stringify(userObj));
-        dispatch({ type: "STORE_USER", payload: userObj });
-
-        setLogin(true);
-        setViewAlert(true);
-        setAlertMessage(`Hello ${res.user.displayName}`);
-        setTimeout(() => {
-          setViewAlert(false);
-        }, 2000);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   return (
     <>
@@ -145,22 +121,6 @@ function Navbar({ topics }) {
                 </a>
               </Link>
 
-              <button className="flex items-center mx-2 lg:mx-4 text-base text-gray-800 hover:text-indigo-600 dark:text-gray-50">
-                {isLogin ? (
-                  <span
-                    className="md:flex items-center"
-                    onClick={handelSignOut}
-                  >
-                    <span className="hidden md:block text-sm font-medium">Sign Out</span>
-                    <IoLogOutOutline className="text-xl mx-1" />
-                  </span>
-                ) : (
-                  <span className="md:flex items-center" onClick={handelSignIn}>
-                    <span className="hidden md:block text-sm font-medium"> Sign In</span>
-                    <AiOutlineGoogle className="text-xl mx-1" />
-                  </span>
-                )}
-              </button>
             </div>
           </div>
         </div>
